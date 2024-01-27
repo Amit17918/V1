@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="example">
+    <div class="demo-section wide">
+        <div id="toolbar"></div>
+        <div id="drawer">
+            <div id="drawer-content">
+                <div id="Trade">
+                    <iframe id="TradeFrame" onload="iframeLoaded()" height="100%" width="100%" src="@Url.Action("Trade","Home")" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div id="Year">
+                    <iframe id="YearFrame" onload="iframeLoaded()" height="100%" width="100%" src="@Url.Action("Year","Home")" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div id="Subjects">
+                    <iframe id="SubjectsFrame" onload="iframeLoaded()" height="100%" width="100%" src="@Url.Action("Subjects","Home")" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div id="Topic">
+                    <iframe id="TopicFrame" onload="iframeLoaded()" height="100%" width="100%" src="@Url.Action("Topic","Home")" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div id="MCQ">
+                    <iframe id="McqFrame" onload="iframeLoaded()" height="100%" width="100%" src="@Url.Action("MCQ","Home")" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/lib/kendoui.for.jquery.2023.2.718.trial/js/kendo.all.min.js"></script>
+    <script type="text/x-kendo-template" id="drower_template">
+        <ul>
+            <li data-role='drawer-item' class='k-selected'>
+                <span class='k-icon k-i-inbox'></span>
+                <span class='k-item-text' data-id='Trade'>Trade</span>
+            </li>
+            <li data-role='drawer-item' class='k-selected'>
+                <span class='k-icon k-i-inbox'></span>
+                <span class='k-item-text' data-id='Year'>Year</span>
+            </li>
+            <li data-role='drawer-item'>
+                <span class='k-icon k-i-calendar'></span>
+                <span class='k-item-text' data-id='Subjects'>Subjects</span>
+            </li>
+            <li data-role='drawer-item'>
+                <span class='k-icon k-i-calendar'></span>
+                <span class='k-item-text' data-id='Topic'>Topic</span>
+            </li>
+            <li data-role='drawer-item'>
+                <span class='k-icon k-i-hyperlink-email'></span>
+                <span class='k-item-text' data-id='MCQ'>MCQ</span>
+            </li>
+            <li data-role='drawer-separator'></li>
+        </ul>
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#drawer").kendoDrawer({
+                template: $("#drower_template").html(),
+                mode: "push",
+                mini: true,
+                itemClick: function (e) {
+                    if (!e.item.hasClass("k-drawer-separator")) {
+                        e.sender.drawerContainer.find("#drawer-content > div").addClass("hidden");
+                        e.sender.drawerContainer.find("#drawer-content").find("#" + e.item.find(".k-item-text").attr("data-id")).removeClass("hidden");
+                    }
+                },
+                position: 'left',
+                swipeToOpen: true
+            });
+        });
+
+        function iframeLoaded() {
+
+            document.getElementById("TradeFrame").style.height = screen.height*1 + 'px';
+            document.getElementById("YearFrame").style.height = screen.height*1 + 'px';
+            document.getElementById("SubjectsFrame").style.height = screen.height*1 + 'px';
+            document.getElementById("McqFrame").style.height = screen.height*1 + 'px';
+            document.getElementById("TopicFrame").style.height = screen.height*1 + 'px';
+            document.getElementById("drawer").style.height = screen.height*1 + 'px';
+        }
+        function toggleDrawer() {
+            var drawerInstance = $("#drawer").data().kendoDrawer;
+            var drawerContainer = drawerInstance.drawerContainer;
+
+            if (drawerContainer.hasClass("k-drawer-expanded")) {
+                drawerInstance.hide();
+            } else {
+                drawerInstance.show();
+            }
+        }
+
+        $("#toolbar").kendoToolBar({
+            items: [
+                { type: "button", icon: "menu", attributes: { "class": "k-flat" }, click: toggleDrawer },
+                { template: "<h3 style='margin-left: 20px;'>V1</h3>" }
+            ]
+        });
+    </script>
+}

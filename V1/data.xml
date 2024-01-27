@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<View>
+    <Header>Label the video:</Header>
+    <video name="video" value="$video" />
+    <Labels name="videoLabels" toName="video">
+        <Label value="Car" background="0" />
+        <Label value="Car" background="1" />
+        <Label value="Car" background="2" />
+        <Label value="Car" background="3" />
+        <Label value="Car" background="4" />
+        <Label value="Car" background="5" />
+        <Label value="Car" background="6" />
+        <Label value="Car" background="7" />
+        <Label value="Car" background="8" />
+        <Label value="Car" background="9" />
+        <Label value="Car" background="10" />
+        <Label value="Car" background="11" />
+        <Label value="Car" background="12" />
+        <Label value="Car" background="13" />
+        <Label value="Car" background="14" />
+        <Label value="Car" background="15" />
+        <Label value="Car" background="16" />
+        <Label value="Car" background="17" />
+        <Label value="Car" background="18" />
+        <Label value="Car" background="19" />
+    </Labels>
+</View>

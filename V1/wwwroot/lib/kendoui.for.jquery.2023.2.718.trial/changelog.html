@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Changelog for Kendo UI Professional v2023.2.718 (Tue Jul 18 2023)</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font: .75em/1.5 Tahoma, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-size: normal;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: normal;
+            margin: 1.2em 0 .3em;
+            padding-bottom: .2em;
+        }
+
+        .breaking {
+            background-color: #e10c01;
+            color: #fff;
+            border-radius: 3px;
+            padding: 3px 4px;
+            display: inline-block;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        #page {
+            width: 50em;
+            margin: 0 auto 2em;
+            border-radius: 0 0 1em 1em;
+            box-shadow: 0 0 10px #ccc;
+            padding: 1em 2em 2em;
+        }
+
+        .poBoxIcon {
+            float: left;
+            font-size: 2em;
+            margin: 1.2em .5em 0 0;
+        }
+
+        .poTopLine {
+            border-top: 2px solid #e1e1e1;
+            margin: 17px 0 40px 0;
+        }
+    </style>
+    <base href="https://www.telerik.com/support/whats-new/kendo-ui-web/release-history">
+</head>
+
+<body>
+    <div id="page">
+        <h1 class="title">Release notes</h1>
+        <div class="tClear poTopLine"></div>
+        <h1>Common</h1>
+        <div class="tClear poTopLine">
+            <div class="poBoxIconText">
+                <p><strong>What's new</strong></p>
+                <ul>
+                    <li>Fluent Theme Package <a href="https://github.com/telerik/kendo-themes/blob/master/packages/fluent/CHANGELOG.md#660-2023-07-14"> (v6.6.0) </a></li>
+                    <li>Classic Theme Package <a href="https://github.com/telerik/kendo-themes/blob/master/packages/classic/CHANGELOG.md#660-2023-07-14"> (v6.6.0) </a></li>
+                    <li>Bootstrap Theme Package <a href="https://github.com/telerik/kendo-themes/blob/master/packages/bootstrap/CHANGELOG.md#660-2023-07-14"> (v6.6.0) </a></li>
+                    <li>Default Theme Package <a href="https://github.com/telerik/kendo-themes/blob/master/packages/default/CHANGELOG.md#660-2023-07-14"> (v6.6.0) </a></li>
+                    <li>Material Theme Package <a href="https://github.com/telerik/kendo-themes/blob/master/packages/material/CHANGELOG.md#660-2023-07-14"> (v6.6.0) </a></li>
+                </ul>
+                <p><strong>What's fixed</strong></p>
+                <ul>
+                    <li>esbuild does not work with latest Kendo UI for jQuery versions <a href="https://github.com/telerik/kendo-ui-core/issues/7395">(#7395)</a></li>
+                    <li>Missing devDependencies in source code bundle <a href="https://github.com/telerik/kendo-ui-core/issues/7374">(#7374)</a></li>
+                    <li>Error on npm run dev when using vite <a href="https://github.com/telerik/kendo-ui-core/issues/7238">(#7238)</a></li>
+                </ul>
+            </div>
+        </div>
+        <h1>Features and Updates</h1>
+        <div class="tClear poTopLine">
+            <h2>Chart</h2>
+            <p><strong>What's new</strong></p>
+            <ul>
+                <li>DrillDown Charts</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>CheckBoxGroup</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Wrong placement of validation message for RadioGroup/CheckBoxGroup <a href="https://github.com/telerik/kendo-ui-core/issues/7307">(#7307)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DateInput</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>DateInput in DatePicker is being wrapped multiple times when setOptions is called <a href="https://github.com/telerik/kendo-ui-core/issues/7331">(#7331)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DatePicker</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>DateInput in DatePicker is being wrapped multiple times when setOptions is called <a href="https://github.com/telerik/kendo-ui-core/issues/7331">(#7331)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DateTimePicker</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>DateTimePicker time button is rendered before calendar button in the new rendering</li>
+                <li>Clicking on the Now button of a DateTimePicker does not set the current time. <a href="https://github.com/telerik/kendo-ui-core/issues/7301">(#7301)</a></li>
+                <li>Missing TimePicker translations in the kendo.messages.en-US.js file <a href="https://github.com/telerik/kendo-ui-core/issues/6910">(#6910)</a></li>
+                <li>DateTimePicker icon is wrong when repeatedly clicked to view switch <a href="https://github.com/telerik/kendo-ui-core/issues/6091">(#6091)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Diagram</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Diagram save button in edit dialog is not working <a href="https://github.com/telerik/kendo-ui-core/issues/7379">(#7379)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Dialog</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Alert okMessage does not take effect</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DropDownList</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Missing class k-list-container of DropDownList's popup element <a href="https://github.com/telerik/kendo-ui-core/issues/7327">(#7327)</a></li>
+                <li>Incorrect k-selected class remains on the first dropdown item of virtual DropDownList when using jQuery 3.4.1+ and setting value through value method <a href="https://github.com/telerik/kendo-ui-core/issues/6567">(#6567)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DropDownTree</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>DropDownTree does not comply to ARIA spec and general ARIA requirements <a href="https://github.com/telerik/kendo-ui-core/issues/7269">(#7269)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Editor</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Color tools in Editor should render gradient when the palette option is set to null <a href="https://github.com/telerik/kendo-ui-core/issues/7381">(#7381)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>FileManager</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>FileManager's ContextMenu doesn't render icons through the spriteCssClass field <a href="https://github.com/telerik/kendo-ui-core/issues/7372">(#7372)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Filter</h2>
+            <p><strong>What's new</strong></p>
+            <ul>
+                <li>Filter - Enhanced ARIA support and Keyboard navigation support</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Gantt</h2>
+            <p><strong>What's new</strong></p>
+            <ul>
+                <li>Gantt - Enhanced ARIA support and Keyboard navigation support</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Grid</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Displaced loading mask on Grid with endless scrolling</li>
+                <li>CSP not compatible if the Grid's column widths are defined <a href="https://github.com/telerik/kendo-ui-core/issues/7434">(#7434)</a></li>
+                <li>JS error thrown on filtering Grid via Column Menu's filter <a href="https://github.com/telerik/kendo-ui-core/issues/7382">(#7382)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MultiColumnComboBox</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>The columns in MultiColumnComboBox with virtualization are misaligned when text is longer than the column width <a href="https://github.com/telerik/kendo-ui-core/issues/7022">(#7022)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>PivotGridV2</h2>
+            <p><strong>What's new</strong></p>
+            <ul>
+                <li>PivotGrid V2 - Enhanced ARIA support and Keyboard navigation support</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>RadioGroup</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Wrong placement of validation message for RadioGroup/CheckBoxGroup <a href="https://github.com/telerik/kendo-ui-core/issues/7307">(#7307)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>SplitButton</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>SplitButton's arrow-down icon displays incorrectly when the iconClass option is configured <a href="https://github.com/telerik/kendo-ui-core/issues/7345">(#7345)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Spreadsheet</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Change event of Spreadsheet's DataSource is not triggered on pressing Delete key <a href="https://github.com/telerik/kendo-ui-core/issues/7106">(#7106)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>TextArea</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>TextArea resizing does not work</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>TimePicker</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Missing TimePicker translations in the kendo.messages.en-US.js file <a href="https://github.com/telerik/kendo-ui-core/issues/6910">(#6910)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Timeline</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Multiple Timelines in horizontal mode cannot be navigated</li>
+                <li>Timeline misalignment <a href="https://github.com/telerik/kendo-ui-core/issues/6806">(#6806)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>ToolBar</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>ToolBar link buttons (URL property set) must not have role=button</li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>TreeList</h2>
+            <p><strong>What's new</strong></p>
+            <ul>
+                <li>TreeList - Enhanced ARIA support and Keyboard navigation support</li>
+            </ul>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Custom DropDownList editor in TreeList collapses parent item <a href="https://github.com/telerik/kendo-ui-core/issues/7370">(#7370)</a></li>
+                <li>The imageClass of the TreeList command column has no effect <a href="https://github.com/telerik/kendo-ui-core/issues/7298">(#7298)</a></li>
+            </ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Validator</h2>
+            <p><strong>What's fixed</strong></p>
+            <ul>
+                <li>Wrong placement of validation message for RadioGroup/CheckBoxGroup <a href="https://github.com/telerik/kendo-ui-core/issues/7307">(#7307)</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

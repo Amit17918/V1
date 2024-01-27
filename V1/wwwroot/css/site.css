@@ -1,0 +1,115 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin:0px;
+  padding:0px;
+}
+
+#drawer-content li {
+    font-size: 1.2em;
+    padding-left: .89em;
+    background: 0 0;
+    border-radius: 0;
+    border-width: 0 0 1px;
+    border-color: rgba(33, 37, 41, 0.125);
+    border-style: solid;
+    line-height: 1.5em;
+    padding: 1.09em .84em 1.23em .84em;
+}
+
+#drawer-content li:last-child {
+    border: 0;
+}
+
+#drawer {
+    align-items: center;
+    padding: 15px;
+    height:100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.k-toolbar .k-icon {
+    font-size: 18px;
+}
+
+.k-drawer-mini .k-drawer-wrapper {
+    width: 20%;
+}
+
+iframe {
+    width:100%;
+}
+
+#TradeContainer {
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+}
+#TradeGrid, #SubjectsGrid, #McqGrid, #TopicGrid {
+    padding: 5px;
+    margin: 20px;
+}
+
+#AddButton {
+    padding: 5px;
+    margin: 0 0 0 20px;
+}
+
+#formControl{
+    padding:5px;
+    margin:5px;
+}
+#formControlButton {
+    padding: 5px;
+    margin: 5px;
+    text-align-last: end;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+#alertBody {
+    text-align: center;
+}
+#alertControlButton {
+    margin: 5px 10px 5px 10px;
+    padding: 5px;
+}
+#button {
+    margin: 5px 15px 5px 15px;
+}
+#alertMessage{
+    font-size:16px;
+}
+#alert_no, #alert_yes {
+    margin: 2px 15px 2px 15px;
+    min-width: 85px;
+}
+#navigation{
+    font-size:14px;
+    margin:10px;
+    padding:10px;
+}
+#container{
+    padding:10px;
+    margin:10px;
+}
