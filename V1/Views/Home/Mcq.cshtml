@@ -69,25 +69,120 @@
             modal: false,
             visible: false,
             open: function (e) {
-
-                $("#tradeName_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
-                $("#years_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
-                $("#subjects_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-                
-                $("#topics_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
+                $("#tradeName_ddl").kendoDropDownList();
+                GetTradeData();
+                $("#years_ddl").kendoDropDownList();
+                $("#subjects_ddl").kendoDropDownList();
+                $("#topics_ddl").kendoDropDownList();
             }
         });
+        function GetTradeData() {
+            $.ajax({
+                url: '@Url.Action("GetDropDownTradeData","Year")',
+                method: "GET",
+                contentType: "application/json",
+                success: function (data) {
+                    $("#tradeName_ddl").kendoDropDownList({
+                        filter: "startswith",
+                        dataTextField: "TradeName",
+                        dataValueField: "ID",
+                        dataSource: data,
+                        select: function (e) {
+                            var item = e.item;
+                            var text = item.text();
+                            GetYearData(e.dataItem);
+                        }
+                    });
+                },
+                error: function (errMsg) {
+                    alert(JSON.stringify(errMsg));
+                }
+            });
+        }
+
+        function GetYearData(data) {
+            var dataString = "TradeID=" + data.ID;
+            $.ajax({
+                url: '@Url.Action("GetDropDownYearData","Subjects")',
+                method: "GET",
+                dataType: "json",
+                data: dataString,
+                success: function (data) {
+                    $("#years_ddl").kendoDropDownList({
+                        filter: "startswith",
+                        dataTextField: "YearName",
+                        dataValueField: "ID",
+                        dataSource: data,
+                        select: function (e) {
+                            var item = e.item;
+                            var text = item.text();
+                            GetSubjectData(e.dataItem);
+                        }
+                    });
+                },
+                error: function (errMsg) {
+                    $("#years_ddl").kendoDropDownList({
+                        filter: "startswith",
+                        dataTextField: "YearName",
+                        dataValueField: "ID",
+                        dataSource: [],
+                        select: function (e) {
+                            var item = e.item;
+                            var text = item.text();
+                        }
+                    });
+                }
+            });
+        }
+        function GetSubjectData(data) {
+            var dataString = "YearID=" + data.ID;
+            $.ajax({
+                url: '@Url.Action("GetDropDownSubjectsData","Topic")',
+                method: "GET",
+                dataType: "json",
+                data: dataString,
+                success: function (data) {
+                    $("#subjects_ddl").kendoDropDownList({
+                        filter: "startswith",
+                        dataTextField: "SubjectName",
+                        dataValueField: "ID",
+                        dataSource: data,
+                        select: function (e) {
+                            var item = e.item;
+                            var text = item.text();
+                            GetTopicData(e.dataItem);
+                        }
+                    });
+                },
+                error: function (errMsg) {
+                    alert(JSON.stringify(errMsg));
+                }
+            });
+        }
+        function GetTopicData(data) {
+            var dataString = "SubjectsID=" + data.ID;
+            $.ajax({
+                url: '@Url.Action("GetDropDownTopicData","Mcq")',
+                method: "GET",
+                dataType: "json",
+                data: dataString,
+                success: function (data) {
+                    $("#topics_ddl").kendoDropDownList({
+                        filter: "startswith",
+                        dataTextField: "TopicName",
+                        dataValueField: "ID",
+                        dataSource: data,
+                        select: function (e) {
+                            var item = e.item;
+                            var text = item.text();
+                        }
+                    });
+                },
+                error: function (errMsg) {
+                    alert(JSON.stringify(errMsg));
+                }
+            });
+        }
 
         var kendoDialog = $("#kendodialog").kendoDialog({
             width: "500px",
@@ -97,22 +192,11 @@
             visible: false,
             open: function (e) {
 
-                $("#tradeName_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
-                $("#years_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
-                $("#subjects_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
-                $("#topics_ddl").kendoDropDownList({
-                    dataSource: ["Apples", "Oranges"]
-                });
-
+                $("#tradeName_ddl").kendoDropDownList();
+                GetTradeData();
+                $("#years_ddl").kendoDropDownList();
+                $("#subjects_ddl").kendoDropDownList();
+                $("#topics_ddl").kendoDropDownList();
             }
         });
 

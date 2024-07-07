@@ -77,7 +77,7 @@
                             select: function (e) {
                                 var item = e.item;
                                 var text = item.text();
-                                GetYearData();
+                                GetYearData(e.dataItem);
                             }
                         });
                     },
@@ -87,11 +87,13 @@
                 });
             }
 
-            function GetYearData(){
+            function GetYearData(data){
+            var dataString = "TradeID=" + data.ID;
                 $.ajax({
-                url: '@Url.Action("GetDropDownYearData","Subjects")',
+                    url: '@Url.Action("GetDropDownYearData","Subjects")',
                     method: "GET",
-                    contentType: "application/json",
+                    dataType: "json",
+                    data: dataString,
                     success: function (data) {
                         $("#years_ddl").kendoDropDownList({
                             filter: "startswith",
@@ -105,7 +107,16 @@
                         });
                     },
                     error: function (errMsg) {
-                        alert(JSON.stringify(errMsg));
+                    $("#years_ddl").kendoDropDownList({
+                        filter: "startswith",
+                        dataTextField: "YearName",
+                        dataValueField: "ID",
+                        dataSource: [],
+                        select: function (e) {
+                            var item = e.item;
+                            var text = item.text();
+                        }
+                    });
                     }
                 });
             }

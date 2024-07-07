@@ -6,6 +6,8 @@ using V1.Models.Trade;
 using System.Net.Http.Json;
 using System.Net.Http;
 using V1.Models.Years;
+using System.Text.Json;
+using V1.Models;
 
 namespace V1.Controllers
 {
@@ -26,10 +28,10 @@ namespace V1.Controllers
             return Json(tradeModels);
         }
         [HttpGet]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetDropDownYearData()
+        public async Task<IActionResult> GetDropDownYearData(string TradeID)
         {
-            var responseString = await client.PostAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetYear.php?filter", null);
+            string request = "and Trade.ID='"+ TradeID + "'";
+            var responseString = await client.PostAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetYear.php?filter="+ request, null);
             var responseContent = await responseString.Content.ReadAsStringAsync();
             var object_ = JObject.Parse(responseContent);
             var jsonData = JsonConvert.SerializeObject(object_["Year"]);

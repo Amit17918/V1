@@ -1,5 +1,4 @@
-﻿
-<div id="container">
+﻿<div id="container">
     <h1>Trade</h1>
     <div id="TradeContainer">
         <div id="kendodialog"></div>
@@ -30,7 +29,7 @@
         <div class="modal-body">
             <div class="form-group" id="formControl">
                 <label class="k-label" for="usr">Trade Name:</label><br>
-                <input type="text" class="form-control" id="tradeName">
+                <input type="text" data-id='#= selectedId#' class="form-control" value='#= selectedName#' id="tradeName">
             </div>
             <div class="form-group" id="formControlButton">
                 <button type="button" id="btnClose" onclick="editDialogCloseBtn()" class="btn btn-danger">Close</button>
@@ -102,7 +101,7 @@
                     },
                     {
                         filed:"Action",
-                        template: "<button type='button' id='editButton' onclick='EditOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
+                        template: "<button type='button' data-id='#= ID#' id='editButton' onclick='EditOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
                             "<button type='button' id='deleteButton' onclick='DeleteOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
                     }
                 ], dataBinding: function () {
@@ -115,21 +114,31 @@
 
             $("#newRecordButton").click(function () {
                 var scriptTemplate = kendo.template($("#editDialog_template").html());
-                var scriptData = { btnName: 'Add' };
+                var scriptData = { btnName: 'Add', selectedId: '', selectedName: '' };
 
                 kendoDialog.html(scriptTemplate(scriptData));
                 kendoDialog.data("kendoDialog").open();
             });
         });
 
-        function EditOnClick(){
+        function EditOnClick(e) {
+            debugger;
             var scriptTemplate = kendo.template($("#editDialog_template").html());
-            var scriptData = { btnName: 'Save' };
+            var Id = e.dataset.id;
 
+            var kendoData=$('#TradeGrid').data('kendoGrid').dataSource.data();
+            var selectedData;
+            kendoData.map((data)=>{
+                if(data.ID==Id){
+                    selectedData= data;
+                }
+            });
+
+            var scriptData = { btnName: 'Update', selectedId: Id, selectedName: selectedData.TradeName };
             kendoDialog.html(scriptTemplate(scriptData));
             kendoDialog.data("kendoDialog").open();
         }
-        function editDialogCloseBtn(){
+        function editDialogCloseBtn(){  
             kendoDialog.data("kendoDialog").close();
         }
         function editDialogAddBtn(){

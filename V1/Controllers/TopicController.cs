@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using V1.Models.Mcq;
+using V1.Models.Subjects;
 using V1.Models.Topic;
 
 namespace V1.Controllers
@@ -20,6 +21,18 @@ namespace V1.Controllers
             var object_ = JObject.Parse(responseContent);
             var jsonData = JsonConvert.SerializeObject(object_["Topics"]);
             List<TopicDataModel> tradeModels = JsonConvert.DeserializeObject<List<TopicDataModel>>(jsonData);
+            return Json(tradeModels);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDropDownSubjectsData(string YearID)
+        {
+            string request = "and Year.ID='" + YearID + "'";
+            var responseString = await client.PostAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetSubject.php?filter="+ request, null);
+            var responseContent = await responseString.Content.ReadAsStringAsync();
+            var object_ = JObject.Parse(responseContent);
+            var jsonData = JsonConvert.SerializeObject(object_["Subjects"]);
+            List<SubjectsDataModel> tradeModels = JsonConvert.DeserializeObject<List<SubjectsDataModel>>(jsonData);
             return Json(tradeModels);
         }
     }
