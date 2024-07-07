@@ -102,7 +102,7 @@
                     {
                         filed:"Action",
                         template: "<button type='button' data-id='#= ID#' id='editButton' onclick='EditOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
-                            "<button type='button' id='deleteButton' onclick='DeleteOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
+                            "<button type='button' data-id='#= ID#'  id='deleteButton' onclick='DeleteOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
                     }
                 ], dataBinding: function () {
                     record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
@@ -122,7 +122,6 @@
         });
 
         function EditOnClick(e) {
-            debugger;
             var scriptTemplate = kendo.template($("#editDialog_template").html());
             var Id = e.dataset.id;
 

@@ -16,5 +16,7 @@ namespace V1.Models.Subjects
         public string YearID { get; set; }
         [JsonPropertyName("YearName")]
         public string YearName { get; set; }
+        [JsonPropertyName("TradeID")]
+        public string TradeID { get; set; }
     }
 }

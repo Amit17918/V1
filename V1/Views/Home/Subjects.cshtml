@@ -29,15 +29,15 @@
             <div class="modal-body">
                 <div class="form-group" id="formControl">
                     <label class="k-label" for="tradeName_ddl">Trade Name:</label><br>
-                    <input id="tradeName_ddl" class="form-control"/>
+                    <input id="tradeName_ddl" data-id='#=TradeID#' class="form-control"/>
                 </div>
                 <div class="form-group" id="formControl">
-                <label class="k-label" for="years_ddl">Year Name:</label><br>
-                    <input id="years_ddl" class="form-control"/>
+                    <label class="k-label" for="years_ddl">Year Name:</label><br>
+                    <input id="years_ddl" data-id='#=YearID#' class="form-control"/>
                 </div>
                 <div class="form-group" id="formControl">
                     <label class="k-label" for="subjectName">Subject Name:</label><br>
-                    <input type="text" class="form-control" id="subjectsName">
+                    <input type="text" data-id='#= selectedId#' class="form-control" value='#= selectedName#' id="subjectsName">
                 </div>
                 <div class="form-group" id="formControlButton">
                     <button type="button" id="btnClose" onclick="editDialogCloseBtn()" class="btn btn-danger">Close</button>
@@ -69,7 +69,10 @@
                     method: "GET",
                     contentType: "application/json",
                     success: function (data) {
+                        var Id=$("#tradeName_ddl").data().id;
+
                         $("#tradeName_ddl").kendoDropDownList({
+                            autoBind: true,
                             filter: "startswith",
                             dataTextField: "TradeName",
                             dataValueField: "ID",
@@ -77,9 +80,22 @@
                             select: function (e) {
                                 var item = e.item;
                                 var text = item.text();
-                                GetYearData(e.dataItem);
+
+                                GetYearData(e.dataItem.ID);
                             }
                         });
+
+                        if (Id != '') {
+                            var index=data.findIndex((d)=>{
+                               return d.ID==Id;
+                            })
+                            $("#tradeName_ddl").data('kendoDropDownList').select(index);
+                            GetYearData(Id);
+                        }else{
+                            if (data.length!=0){
+                                GetYearData(data[0].ID);
+                            }
+                        }
                     },
                     error: function (errMsg) {
                         alert(JSON.stringify(errMsg));
@@ -87,15 +103,17 @@
                 });
             }
 
-            function GetYearData(data){
-            var dataString = "TradeID=" + data.ID;
+            function GetYearData(ID){
+            var dataString = "TradeID=" + ID;
                 $.ajax({
                     url: '@Url.Action("GetDropDownYearData","Subjects")',
                     method: "GET",
                     dataType: "json",
                     data: dataString,
                     success: function (data) {
+                        var Id = $("#years_ddl").data().id;
                         $("#years_ddl").kendoDropDownList({
+                            autoBind: true,
                             filter: "startswith",
                             dataTextField: "YearName",
                             dataValueField: "ID",
@@ -105,6 +123,10 @@
                                 var text = item.text();
                             }
                         });
+
+                        if (Id != '') {
+                            $("#years_ddl").data('kendoDropDownList').value(Id);
+                        }
                     },
                     error: function (errMsg) {
                     $("#years_ddl").kendoDropDownList({
@@ -177,9 +199,12 @@
                             field: "YearName",
                             title: "YearName",
                         },{
+                            field: "TradeID",
+                            title: "TradeID",
+                        },{
                             filed:"Action",
-                            template: "<button type='button' id='editButton' onclick='EditOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
-                                "<button type='button' id='deleteButton' onclick='DeleteOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
+                            template: "<button type='button' id='editButton'  data-id='#= ID#' onclick='EditOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
+                                    "<button type='button' id='deleteButton'  data-id='#= ID#' onclick='DeleteOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
                         }
                     ], dataBinding: function () {
                         record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
@@ -189,16 +214,40 @@
 
                 $("#newRecordButton").click(function () {
                     var scriptTemplate = kendo.template($("#editDialog_template").html());
-                    var scriptData = { btnName: 'Add' };
+                    var scriptData = {
+                        btnName: 'Add',
+                        selectedId: '',
+                        selectedName: '',
+                        YearID: '',
+                        TradeID:'',
+                        TradeName: ''
+                    };
 
                     kendoEditDialog.html(scriptTemplate(scriptData));
                     kendoEditDialog.data("kendoDialog").open();
                 });
             });
 
-            function EditOnClick(){
+            function EditOnClick(e){
                 var scriptTemplate = kendo.template($("#editDialog_template").html());
-                var scriptData = { btnName: 'Save' };
+                var Id = e.dataset.id;
+
+                var kendoData = $('#SubjectsGrid').data('kendoGrid').dataSource.data();
+                var selectedData;
+                kendoData.map((data) => {
+                    if (data.ID == Id) {
+                        selectedData = data;
+                    }
+                });
+
+                var scriptData = {
+                    btnName: 'Update',
+                    selectedId: Id,
+                    selectedName: selectedData.SubjectName,
+                    YearID: selectedData.YearID,
+                    TradeID:selectedData.TradeID,
+                    TradeName: selectedData.TradeName
+                };
 
                 kendoEditDialog.html(scriptTemplate(scriptData));
                 kendoEditDialog.data("kendoDialog").open();

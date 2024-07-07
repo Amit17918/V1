@@ -24,5 +24,10 @@ namespace V1.Models.Topic
 
         [JsonPropertyName("SubjectName")]
         public string SubjectName { get; set; }
+        [JsonPropertyName("YearID")]
+        public string YearID { get; set; }
+        [JsonPropertyName("TradeID")]
+        public string TradeID { get; set; }
+
     }
 }

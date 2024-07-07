@@ -29,11 +29,11 @@
                 <div class="modal-body">
                     <div class="form-group" id="formControl">
                         <label class="k-label" for="tradeName_ddl">Trade Name:</label><br>
-                        <input id="tradeName_ddl" class="form-control"/>
+                        <input data-id='#=TradeID#' id="tradeName_ddl" class="form-control"/>
                     </div>
                     <div class="form-group" id="formControl">
                         <label class="k-label" for="subjectName">Year Name:</label><br>
-                        <input type="text" class="form-control" id="yearName">
+                        <input type="text" data-id='#= selectedId#' class="form-control" value='#= selectedName#' id="yearName">
                     </div>
                     <div class="form-group" id="formControlButton">
                         <button type="button" id="btnClose" onclick="editDialogCloseBtn()" class="btn btn-danger">Close</button>
@@ -63,12 +63,18 @@
                         method: "GET",
                         contentType: "application/json",
                         success: function (data) {
+
+                            var Id=$("#tradeName_ddl").data().id;
                             $("#tradeName_ddl").kendoDropDownList({
                                 filter: "startswith",
                                 dataTextField: "TradeName",
                                 dataValueField: "ID",
                                 dataSource: data
                             });
+
+                            if(Id!=''){
+                                $("#tradeName_ddl").data('kendoDropDownList').value(Id);
+                            }
                         },
                         error: function (errMsg) {
                             alert(JSON.stringify(errMsg));
@@ -132,8 +138,8 @@
                             },
                             {
                                 filed:"Action",
-                                template: "<button type='button' id='editButton' onclick='EditOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
-                                    "<button type='button' id='deleteButton' onclick='DeleteOnClick()' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
+                                template: "<button type='button' data-id='#= ID#'  id='editButton' onclick='EditOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'><span class='k-icon k-i-edit'></span>Edit</button> </t>" +
+                                    "<button type='button' data-id='#= ID#'  id='deleteButton' onclick='DeleteOnClick(this)' class='k-button k-button-solid k-button-md k-rounded-md k-button-solid-base'> <span class='k-icon k-i-trash'></span>Delete</button> "
                             }
                         ], dataBinding: function () {
                             record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
@@ -144,16 +150,38 @@
 
                     $("#newRecordButton").click(function () {
                         var scriptTemplate = kendo.template($("#editDialog_template").html());
-                        var scriptData = { btnName: 'Add' };
+                        var scriptData = {
+                            btnName: 'Add',
+                            selectedId: '',
+                            selectedName:'',
+                            TradeID: '',
+                            TradeName: ''
+                        };
 
                         kendoEditDialog.html(scriptTemplate(scriptData));
                         kendoEditDialog.data("kendoDialog").open();
                     });
                 });
 
-                function EditOnClick(){
+                function EditOnClick(e){
                     var scriptTemplate = kendo.template($("#editDialog_template").html());
-                    var scriptData = { btnName: 'Save' };
+                    var Id = e.dataset.id;
+
+                    var kendoData = $('#YearGrid').data('kendoGrid').dataSource.data();
+                    var selectedData;
+                    kendoData.map((data) => {
+                        if (data.ID == Id) {
+                            selectedData = data;
+                        }
+                    });
+
+                    var scriptData = { 
+                        btnName: 'Update',
+                        selectedId: Id,
+                        selectedName: selectedData.YearName,
+                        TradeID: selectedData.TradeID,
+                        TradeName: selectedData.TradeName
+                    };
 
                     kendoEditDialog.html(scriptTemplate(scriptData));
                     kendoEditDialog.data("kendoDialog").open();
