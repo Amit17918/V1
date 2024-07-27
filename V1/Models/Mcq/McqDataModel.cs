@@ -30,6 +30,15 @@ namespace V1.Models.Mcq
         
         [JsonPropertyName("Remark")]
         public string Remark { get; set; }
+        
+        [JsonPropertyName("SubjectID")]
+        public string SubjectID { get; set; }
+        
+        [JsonPropertyName("TradeID")]
+        public string TradeID { get; set; }
+        
+        [JsonPropertyName("YearID")]
+        public string YearID { get; set; }
 
     }
 }

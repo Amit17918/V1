@@ -31,11 +31,18 @@ namespace V1.Controllers
         public async Task<IActionResult> GetDropDownYearData(string TradeID)
         {
             string request = "and Trade.ID='"+ TradeID + "'";
-            var responseString = await client.PostAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetYear.php?filter="+ request, null);
-            var responseContent = await responseString.Content.ReadAsStringAsync();
-            var object_ = JObject.Parse(responseContent);
-            var jsonData = JsonConvert.SerializeObject(object_["Year"]);
-            List<YearsDataModel> tradeModels = JsonConvert.DeserializeObject<List<YearsDataModel>>(jsonData);
+            List<YearsDataModel> tradeModels = new List<YearsDataModel>();
+            try
+            {
+                var responseString = await client.PostAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetYear.php?filter=" + request, null);
+                var responseContent = await responseString.Content.ReadAsStringAsync();
+                var object_ = JObject.Parse(responseContent);
+                var jsonData = JsonConvert.SerializeObject(object_["Year"]);
+                tradeModels = JsonConvert.DeserializeObject<List<YearsDataModel>>(jsonData);
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
             return Json(tradeModels);
         }
     }

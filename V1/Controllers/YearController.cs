@@ -34,5 +34,28 @@ namespace V1.Controllers
             List<TradeDataModel> tradeModels = JsonConvert.DeserializeObject<List<TradeDataModel>>(jsonData);
             return Json(tradeModels);
         }
+
+        [HttpPost]
+        [Produces("application/json")]
+        public async Task<IActionResult> UpdateInsertData()
+        {
+            var httpRequest = HttpContext.Request;
+            YearsDataModel yearsDataModel = new YearsDataModel();
+            yearsDataModel.YearName = httpRequest.Form["YearName"];
+            yearsDataModel.ID = httpRequest.Form["ID"];
+            yearsDataModel.TradeID = httpRequest.Form["TradeID"];
+            try
+            {
+                string request = "YearName=" + yearsDataModel.YearName + "&TradeID=" + yearsDataModel.TradeID + "&YearID="+yearsDataModel.ID;
+                var responseString = await client.GetAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetYear.php?" + request);
+                var responseContent = await responseString.Content.ReadAsStringAsync();
+                var object_ = JObject.Parse(responseContent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return Json(yearsDataModel);
+        }
     }
 }

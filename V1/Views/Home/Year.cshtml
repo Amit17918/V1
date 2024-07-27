@@ -190,8 +190,30 @@
                     kendoEditDialog.data("kendoDialog").close();
                 }
                 function editDialogAddBtn(){
+                    var formData = new FormData();
+                    formData.append("YearName", $('#yearName').val());
+                    formData.append("ID", $('#yearName').data().id);
+                    formData.append("TradeID", $("#tradeName_ddl").data('kendoDropDownList').value());
 
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("UpdateInsertData","Year")',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (data, textStatus, jqXHR) {
+                            kendoEditDialog.data("kendoDialog").close();
+                            console.log('sucuss' + data);
+                            
+                            var yearData = $("#YearGrid").data('kendoGrid').dataSource.data();
 
+                            $('#YearGrid').data('kendoGrid').dataSource.read();
+                            $('#YearGrid').data('kendoGrid').refresh();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('error' + errorThrown);
+                        }
+                    });
                 }
                 function DeleteOnClick(){
                     var scriptTemplate = kendo.template($("#alertDialog_template").html());
