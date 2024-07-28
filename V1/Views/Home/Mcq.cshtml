@@ -51,7 +51,7 @@
             </div>
             <div class="form-group" id="formControl">
                 <label class="k-label" for="pwd">MCQ URL:</label><br>
-                <input type="text" class="form-control" value='#= selectedName#' id="mcqURL">
+                <input type="text" data-id='#= selectedId#' class="form-control" value='#= selectedName#' id="mcqURL">
             </div>
             <div class="form-group" id="formControlButton">
                 <button type="button" id="btnClose" onclick="editDialogCloseBtn()" class="btn btn-danger">Close</button>
@@ -380,7 +380,31 @@
             kendoDialog.data("kendoDialog").close();
         }
         function editDialogAddBtn() {
+            var formData = new FormData();
+            formData.append("McqUrl", $('#mcqURL').val());
+            formData.append("McqID", $('#mcqURL').data().id);
+            formData.append("TopicID", $("#topics_ddl").data('kendoDropDownList').value());
+            formData.append("Remark", $('#remark').val());
 
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateInsertData","Mcq")',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (data, textStatus, jqXHR) {
+                    kendoEditDialog.data("kendoDialog").close();
+                    console.log('sucuss' + data);
+
+                    var yearData = $("#TopicGrid").data('kendoGrid').dataSource.data();
+
+                    $('#TopicGrid').data('kendoGrid').dataSource.read();
+                    $('#TopicGrid').data('kendoGrid').refresh();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('error' + errorThrown);
+                }
+            });
         }
         function DeleteOnClick() {
             var scriptTemplate = kendo.template($("#alertDialog_template").html());

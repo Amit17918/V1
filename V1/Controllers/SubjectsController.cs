@@ -45,5 +45,28 @@ namespace V1.Controllers
             }
             return Json(tradeModels);
         }
+
+        [HttpPost]
+        [Produces("application/json")]
+        public async Task<IActionResult> UpdateInsertData()
+        {
+            var httpRequest = HttpContext.Request;
+            SubjectsDataModel subjectsDataModel = new SubjectsDataModel();
+            subjectsDataModel.SubjectName = httpRequest.Form["SubjectName"];
+            subjectsDataModel.ID = httpRequest.Form["ID"];
+            subjectsDataModel.YearID = httpRequest.Form["YearID"];
+            try
+            {
+                string request = "SubjectName=" + subjectsDataModel.SubjectName + "&YearID=" + subjectsDataModel.YearID + "&SubjectID=" + subjectsDataModel.ID;
+                var responseString = await client.GetAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetSubject.php?" + request);
+                var responseContent = await responseString.Content.ReadAsStringAsync();
+                var object_ = JObject.Parse(responseContent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return Json(subjectsDataModel);
+        }
     }
 }

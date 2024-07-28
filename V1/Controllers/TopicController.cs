@@ -35,5 +35,28 @@ namespace V1.Controllers
             List<SubjectsDataModel> tradeModels = JsonConvert.DeserializeObject<List<SubjectsDataModel>>(jsonData);
             return Json(tradeModels);
         }
+
+        [HttpPost]
+        [Produces("application/json")]
+        public async Task<IActionResult> UpdateInsertData()
+        {
+            var httpRequest = HttpContext.Request;
+            TopicDataModel topicDataModel = new TopicDataModel();
+            topicDataModel.TopicName = httpRequest.Form["TopicName"];
+            topicDataModel.ID = httpRequest.Form["ID"];
+            topicDataModel.SubjectID = httpRequest.Form["SubjectID"];
+            try
+            {
+                string request = "TopicName=" + topicDataModel.TopicName + "&SubjectID=" + topicDataModel.SubjectID + "&TopicID=" + topicDataModel.ID;
+                var responseString = await client.GetAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetTopic.php?" + request);
+                var responseContent = await responseString.Content.ReadAsStringAsync();
+                var object_ = JObject.Parse(responseContent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return Json(topicDataModel);
+        }
     }
 }

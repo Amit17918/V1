@@ -35,5 +35,29 @@ namespace V1.Controllers
             List<TopicDataModel> tradeModels = JsonConvert.DeserializeObject<List<TopicDataModel>>(jsonData);
             return Json(tradeModels);
         }
+
+        [HttpPost]
+        [Produces("application/json")]
+        public async Task<IActionResult> UpdateInsertData()
+        {
+            var httpRequest = HttpContext.Request;
+            McqDataModel mcqDataModel = new McqDataModel();
+            mcqDataModel.McqUrl = httpRequest.Form["McqUrl"];
+            mcqDataModel.ID = httpRequest.Form["McqID"];
+            mcqDataModel.TopicID = httpRequest.Form["TopicID"];
+            mcqDataModel.Remark = httpRequest.Form["Remark"];
+            try
+            {
+                string request = "McqUrl=" + mcqDataModel.McqUrl + "&TopicID=" + mcqDataModel.TopicID + "&Remark=" + mcqDataModel.Remark+ "&McqID=" + mcqDataModel.ID;
+                var responseString = await client.GetAsync("https://sbstudentmcq.000webhostapp.com/StudentMCQ/API/GetMcq.php?" + request);
+                var responseContent = await responseString.Content.ReadAsStringAsync();
+                var object_ = JObject.Parse(responseContent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            return Json(mcqDataModel);
+        }
     }
 }
